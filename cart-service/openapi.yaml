@@ -1,0 +1,15 @@
+openapi: 3.0.3
+info:
+  title: Cart Service API
+  version: 1.0.0
+paths:
+  /carts/{userId}/items:
+    post:
+      summary: Add item to active cart
+      responses:
+        '200': { description: Updated cart }
+  /carts/{userId}:
+    get:
+      summary: Get active cart
+      responses:
+        '200': { description: Cart response }

@@ -1,0 +1,16 @@
+openapi: 3.0.3
+info:
+  title: Product Service API
+  version: 1.0.0
+paths:
+  /products:
+    post:
+      summary: Create product
+      responses:
+        '200': { description: Created }
+  /products/{sku}:
+    get:
+      summary: Get product by SKU
+      responses:
+        '200': { description: Product }
+        '404': { description: Not Found }
