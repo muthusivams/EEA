@@ -1,6 +1,7 @@
 package com.ecommerce.auth.controller;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,6 +28,7 @@ class AuthControllerTest {
         .thenReturn(new TokenResponse("a", "r", "Bearer", 900));
 
     mockMvc.perform(post("/auth/login")
+        .with(csrf())
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(new LoginRequest("u@e.com", "secret"))))
       .andExpect(status().isOk());
