@@ -16,12 +16,12 @@ public class CartController {
   private final CartService cartService;
 
   @PostMapping("/{userId}/items")
-  public ResponseEntity<CartResponse> addItem(@PathVariable String userId, @Valid @RequestBody AddItemRequest request) {
+  public ResponseEntity<CartResponse> addItem(@PathVariable("userId") String userId, @Valid @RequestBody AddItemRequest request) {
     return ResponseEntity.ok(cartService.addItem(userId, request));
   }
 
   @GetMapping("/{userId}")
-  public ResponseEntity<CartResponse> getActiveCart(@PathVariable String userId) {
+  public ResponseEntity<CartResponse> getActiveCart(@PathVariable("userId") String userId) {
     return ResponseEntity.ok(cartService.getActiveCart(userId));
   }
 }
