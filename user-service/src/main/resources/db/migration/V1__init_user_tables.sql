@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS user_profiles (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   external_auth_id VARCHAR(128) NOT NULL UNIQUE,
   first_name VARCHAR(120),
   last_name VARCHAR(120),

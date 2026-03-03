@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users_credentials (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
   roles VARCHAR(255) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users_credentials (
 );
 
 CREATE TABLE IF NOT EXISTS refresh_tokens (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   subject_id BIGINT NOT NULL,
   token_hash VARCHAR(255) NOT NULL UNIQUE,
   revoked BOOLEAN DEFAULT FALSE,
@@ -17,4 +17,4 @@ CREATE TABLE IF NOT EXISTS refresh_tokens (
   created_at TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_refresh_subject_revoked ON refresh_tokens(subject_id, revoked);
+CREATE INDEX idx_refresh_subject_revoked ON refresh_tokens(subject_id, revoked);

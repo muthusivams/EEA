@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS notification_messages (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   message_id VARCHAR(64) NOT NULL UNIQUE,
   channel VARCHAR(32) NOT NULL,
   recipient VARCHAR(255) NOT NULL,
@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS notification_messages (
   status VARCHAR(32) NOT NULL,
   created_at TIMESTAMP
 );
-CREATE INDEX IF NOT EXISTS idx_notification_recipient ON notification_messages(recipient);
+CREATE INDEX idx_notification_recipient ON notification_messages(recipient);

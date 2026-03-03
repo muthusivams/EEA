@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS products (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   sku VARCHAR(64) NOT NULL UNIQUE,
   name VARCHAR(180) NOT NULL,
   description TEXT,
@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS products (
   updated_at TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_products_active_sku ON products(active, sku);
+CREATE INDEX idx_products_active_sku ON products(active, sku);
