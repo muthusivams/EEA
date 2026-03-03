@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
@@ -24,6 +25,7 @@ class ProductControllerTest {
   @Autowired ObjectMapper objectMapper;
   @MockBean ProductService productService;
 
+  @WithMockUser(roles = "ADMIN")
   @Test
   void shouldCreateProduct() throws Exception {
     when(productService.create(any(ProductRequest.class)))

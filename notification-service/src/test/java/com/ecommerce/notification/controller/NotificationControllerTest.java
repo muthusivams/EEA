@@ -13,9 +13,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 @WebMvcTest(NotificationController.class)
 class NotificationControllerTest {
   @Autowired MockMvc mockMvc; @Autowired ObjectMapper objectMapper; @MockBean NotificationService notificationService;
+  @WithMockUser(roles = "SERVICE")
   @Test void shouldSend() throws Exception {
     when(notificationService.send(any(NotificationRequest.class))).thenReturn(new NotificationResponse("NTF-1","EMAIL","a@b.com","SENT"));
     mockMvc.perform(post("/notifications").with(csrf()).contentType(MediaType.APPLICATION_JSON)

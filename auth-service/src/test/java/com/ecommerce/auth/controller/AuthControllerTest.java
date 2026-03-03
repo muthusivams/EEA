@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(AuthController.class)
 class AuthControllerTest {
@@ -22,6 +23,7 @@ class AuthControllerTest {
   @Autowired ObjectMapper objectMapper;
   @MockBean AuthService authService;
 
+  @WithMockUser(roles = "USER")
   @Test
   void shouldReturn200ForLogin() throws Exception {
     when(authService.login(new LoginRequest("u@e.com", "secret")))

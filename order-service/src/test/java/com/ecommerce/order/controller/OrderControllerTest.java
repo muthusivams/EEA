@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(OrderController.class)
 class OrderControllerTest {
@@ -24,6 +25,7 @@ class OrderControllerTest {
   @Autowired ObjectMapper objectMapper;
   @MockBean OrderService orderService;
 
+  @WithMockUser(roles = "USER")
   @Test
   void shouldCreate() throws Exception {
     when(orderService.create(any(CreateOrderRequest.class))).thenReturn(new OrderResponse("ORD-1", "u1", BigDecimal.ONE, "PENDING"));

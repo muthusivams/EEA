@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(CartController.class)
 class CartControllerTest {
@@ -25,6 +26,7 @@ class CartControllerTest {
   @Autowired ObjectMapper objectMapper;
   @MockBean CartService cartService;
 
+  @WithMockUser(roles = "USER")
   @Test
   void shouldAddItem() throws Exception {
     when(cartService.addItem(any(), any(AddItemRequest.class)))

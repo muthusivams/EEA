@@ -14,9 +14,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 @WebMvcTest(PaymentController.class)
 class PaymentControllerTest {
   @Autowired MockMvc mockMvc; @Autowired ObjectMapper objectMapper; @MockBean PaymentService paymentService;
+  @WithMockUser(roles = "SERVICE")
   @Test void shouldProcess() throws Exception {
     when(paymentService.process(any(PaymentRequest.class))).thenReturn(new PaymentResponse("PAY-1","ORD-1",BigDecimal.ONE,"SUCCESS"));
     mockMvc.perform(post("/payments").with(csrf()).contentType(MediaType.APPLICATION_JSON)

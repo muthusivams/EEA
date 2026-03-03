@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(UserProfileController.class)
 class UserProfileControllerTest {
@@ -23,6 +24,7 @@ class UserProfileControllerTest {
   @Autowired ObjectMapper objectMapper;
   @MockBean UserProfileService userProfileService;
 
+  @WithMockUser(roles = "USER")
   @Test
   void shouldCreateProfile() throws Exception {
     when(userProfileService.create(any(UserProfileRequest.class)))
