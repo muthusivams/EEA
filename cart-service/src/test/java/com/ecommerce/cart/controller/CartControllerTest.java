@@ -1,6 +1,7 @@
 package com.ecommerce.cart.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,6 +31,7 @@ class CartControllerTest {
         .thenReturn(new CartResponse(1L, "u1", "ACTIVE", List.of()));
 
     mockMvc.perform(post("/carts/u1/items")
+        .with(csrf())
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(new AddItemRequest("SKU1", 1, BigDecimal.ONE))))
       .andExpect(status().isOk());

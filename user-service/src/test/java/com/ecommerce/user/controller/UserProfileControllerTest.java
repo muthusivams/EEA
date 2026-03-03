@@ -1,6 +1,7 @@
 package com.ecommerce.user.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +29,7 @@ class UserProfileControllerTest {
         .thenReturn(new UserProfileResponse(1L, "auth-id", "John", "Doe", "j@e.com", true));
 
     mockMvc.perform(post("/users")
+        .with(csrf())
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(new UserProfileRequest("auth-id", "John", "Doe", "j@e.com", true))))
       .andExpect(status().isOk());

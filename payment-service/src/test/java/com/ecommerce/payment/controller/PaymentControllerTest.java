@@ -1,5 +1,6 @@
 package com.ecommerce.payment.controller;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,7 +19,7 @@ class PaymentControllerTest {
   @Autowired MockMvc mockMvc; @Autowired ObjectMapper objectMapper; @MockBean PaymentService paymentService;
   @Test void shouldProcess() throws Exception {
     when(paymentService.process(any(PaymentRequest.class))).thenReturn(new PaymentResponse("PAY-1","ORD-1",BigDecimal.ONE,"SUCCESS"));
-    mockMvc.perform(post("/payments").contentType(MediaType.APPLICATION_JSON)
+    mockMvc.perform(post("/payments").with(csrf()).contentType(MediaType.APPLICATION_JSON)
       .content(objectMapper.writeValueAsString(new PaymentRequest("ORD-1",BigDecimal.ONE))))
       .andExpect(status().isOk());
   }

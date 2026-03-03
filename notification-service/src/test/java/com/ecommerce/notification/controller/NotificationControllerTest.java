@@ -1,5 +1,6 @@
 package com.ecommerce.notification.controller;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,7 +18,7 @@ class NotificationControllerTest {
   @Autowired MockMvc mockMvc; @Autowired ObjectMapper objectMapper; @MockBean NotificationService notificationService;
   @Test void shouldSend() throws Exception {
     when(notificationService.send(any(NotificationRequest.class))).thenReturn(new NotificationResponse("NTF-1","EMAIL","a@b.com","SENT"));
-    mockMvc.perform(post("/notifications").contentType(MediaType.APPLICATION_JSON)
+    mockMvc.perform(post("/notifications").with(csrf()).contentType(MediaType.APPLICATION_JSON)
       .content(objectMapper.writeValueAsString(new NotificationRequest("EMAIL","a@b.com","hi"))))
       .andExpect(status().isOk());
   }
