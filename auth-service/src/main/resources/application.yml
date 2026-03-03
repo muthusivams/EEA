@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: auth-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/authdb}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:Passcode123}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+security:
+  jwt:
+    issuer: ecommerce-auth
+    expiration-minutes: 15
+    refresh-expiration-days: 7
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha

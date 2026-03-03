@@ -1,0 +1,11 @@
+openapi: 3.0.3
+info: { title: Inventory Service API, version: 1.0.0 }
+paths:
+  /inventory:
+    post:
+      summary: Upsert inventory item
+      responses: { '200': { description: Upserted } }
+  /inventory/{sku}:
+    get:
+      summary: Get inventory by sku
+      responses: { '200': { description: Found }, '404': { description: Not found } }

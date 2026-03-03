@@ -1,0 +1,11 @@
+openapi: 3.0.3
+info: { title: Payment Service API, version: 1.0.0 }
+paths:
+  /payments:
+    post:
+      summary: Process payment
+      responses: { '200': { description: Processed } }
+  /payments/{paymentReference}:
+    get:
+      summary: Fetch payment status
+      responses: { '200': { description: Found }, '404': { description: Not found } }

@@ -1,0 +1,11 @@
+openapi: 3.0.3
+info: { title: Notification Service API, version: 1.0.0 }
+paths:
+  /notifications:
+    post:
+      summary: Send notification
+      responses: { '200': { description: Sent } }
+  /notifications/{messageId}:
+    get:
+      summary: Get notification
+      responses: { '200': { description: Found }, '404': { description: Not found } }
