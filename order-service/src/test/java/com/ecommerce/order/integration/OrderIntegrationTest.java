@@ -1,10 +1,29 @@
 package com.ecommerce.order.integration;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.*;
-@Testcontainers @SpringBootTest
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+@Testcontainers
+@SpringBootTest
 class OrderIntegrationTest {
-  @Container static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16");
-  @Test void contextLoads(){}
+  @Container
+  static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.4")
+      .withDatabaseName("orderdb")
+      .withUsername("test")
+      .withPassword("test");
+
+  @DynamicPropertySource
+  static void registerProps(DynamicPropertyRegistry registry) {
+    registry.add("spring.datasource.url", mysql::getJdbcUrl);
+    registry.add("spring.datasource.username", mysql::getUsername);
+    registry.add("spring.datasource.password", mysql::getPassword);
+  }
+
+  @Test
+  void contextLoads() {}
 }
