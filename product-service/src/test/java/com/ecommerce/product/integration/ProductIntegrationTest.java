@@ -12,7 +12,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest
 class ProductIntegrationTest {
   @Container
-  static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.4")
+  static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.39")
       .withDatabaseName("productdb")
       .withUsername("test")
       .withPassword("test");
