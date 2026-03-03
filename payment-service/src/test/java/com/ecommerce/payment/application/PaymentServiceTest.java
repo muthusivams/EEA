@@ -32,7 +32,6 @@ class PaymentServiceTest {
     PaymentTransaction tx=PaymentTransaction.builder().paymentReference("PAY-1").orderNumber("ORD-1").amount(BigDecimal.ONE).status("SUCCESS").build();
     when(repository.findByPaymentReference("PAY-1")).thenReturn(Optional.of(tx));
     when(mapper.toResponse(tx)).thenReturn(new PaymentResponse("PAY-1","ORD-1",BigDecimal.ONE,"SUCCESS"));
-    when(meterRegistry.counter("failed_payments_total", "status", "success")).thenReturn(counter);
     assertEquals("PAY-1", service.get("PAY-1").paymentReference());
   }
 }
