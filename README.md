@@ -102,7 +102,38 @@ Each service exposes runtime Swagger docs at:
 - `/swagger-ui.html`
 - `/v3/api-docs`
 
+When running with `docker-compose`, use these host URLs:
+- Auth Service: `http://localhost:8081/swagger-ui.html`
+- User Service: `http://localhost:8082/swagger-ui.html`
+- Product Service: `http://localhost:8083/swagger-ui.html`
+- Cart Service: `http://localhost:8084/swagger-ui.html`
+- Order Service: `http://localhost:8085/swagger-ui.html`
+- Payment Service: `http://localhost:8086/swagger-ui.html`
+- Notification Service: `http://localhost:8087/swagger-ui.html`
+- Inventory Service: `http://localhost:8088/swagger-ui.html`
+
+## Docker Compose Troubleshooting
+
+If you see an error like:
+
+- `unable to get image ... check if the server supports the requested API version`
+
+then your Docker Compose client is newer than the Docker engine API exposed by Docker Desktop.
+
+Quick fixes (Windows PowerShell):
+
+1. Update/restart Docker Desktop first.
+2. Recreate with clean state:
+   - `docker compose down --remove-orphans`
+   - `docker system prune -f`
+   - `docker compose build --no-cache`
+   - `docker compose up -d`
+3. If API mismatch persists, pin API version for the session before running compose:
+   - `$env:DOCKER_API_VERSION="1.47"`
+   - `docker compose up --build -d`
+
+Also note: this repository no longer sets the obsolete top-level `version` key in `docker-compose.yml`, which removes the warning from modern Compose V2.
+
 ## Additional Documentation
 
 - Key microservice functionality summary: `docs/Key_Microservice_Functionalities.md`.
-
