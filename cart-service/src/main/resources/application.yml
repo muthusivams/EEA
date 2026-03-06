@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${MYSQL_URL:jdbc:mysql://localhost:3306/cartdb}
     username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:Passcode123}
+    password: ${MYSQL_PASSWORD:Thenu@5612}
   flyway:
     enabled: true
 management:
