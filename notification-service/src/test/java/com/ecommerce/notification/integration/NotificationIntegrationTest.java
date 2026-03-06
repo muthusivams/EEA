@@ -19,7 +19,10 @@ class NotificationIntegrationTest {
 
   @DynamicPropertySource
   static void registerProps(DynamicPropertyRegistry registry) {
-    registry.add("spring.datasource.url", mysql::getJdbcUrl);
+    registry.add("spring.datasource.url", () -> {
+      String url = mysql.getJdbcUrl();
+      return url + (url.contains("?") ? "&" : "?") + "createDatabaseIfNotExist=true";
+    });
     registry.add("spring.datasource.username", mysql::getUsername);
     registry.add("spring.datasource.password", mysql::getPassword);
     registry.add("spring.jpa.hibernate.ddl-auto", () -> "none");
