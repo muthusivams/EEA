@@ -112,6 +112,7 @@ When running with `docker-compose`, use these host URLs:
 - Notification Service: `http://localhost:8087/swagger-ui.html`
 - Inventory Service: `http://localhost:8088/swagger-ui.html`
 
+<<<<<<< codex/fix-swagger-url-accessibility-in-docker
 ## Docker Compose Troubleshooting
 
 If you see an error like:
@@ -134,6 +135,8 @@ Quick fixes (Windows PowerShell):
 
 Also note: this repository no longer sets the obsolete top-level `version` key in `docker-compose.yml`, which removes the warning from modern Compose V2.
 
+=======
+>>>>>>> Feature/Mar-2026
 ## Additional Documentation
 
 - Key microservice functionality summary: `docs/Key_Microservice_Functionalities.md`.
