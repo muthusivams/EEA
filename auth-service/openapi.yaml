@@ -1,0 +1,15 @@
+openapi: 3.0.3
+info:
+  title: Auth Service API
+  version: 1.0.0
+paths:
+  /auth/login:
+    post:
+      summary: Authenticate user and issue tokens
+      requestBody:
+        required: true
+      responses:
+        '200':
+          description: Token response
+        '401':
+          description: Unauthorized

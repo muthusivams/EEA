@@ -1,0 +1,119 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 100
+            redis-rate-limiter.burstCapacity: 200
+      routes:
+        - id: auth-service-v1
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/v1/auth/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: authCircuit
+                fallbackUri: forward:/fallback/auth
+        - id: user-service-v1
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: userCircuit
+                fallbackUri: forward:/fallback/users
+        - id: product-service-v1
+          uri: lb://product-service
+          predicates:
+            - Path=/api/v1/products/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: productCircuit
+                fallbackUri: forward:/fallback/products
+        - id: cart-service-v1
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/v1/carts/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: cartCircuit
+                fallbackUri: forward:/fallback/carts
+        - id: order-service-v1
+          uri: lb://order-service
+          predicates:
+            - Path=/api/v1/orders/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: orderCircuit
+                fallbackUri: forward:/fallback/orders
+        - id: payment-service-v1
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/v1/payments/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: paymentCircuit
+                fallbackUri: forward:/fallback/payments
+        - id: notification-service-v1
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/notifications/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: notificationCircuit
+                fallbackUri: forward:/fallback/notifications
+        - id: inventory-service-v1
+          uri: lb://inventory-service
+          predicates:
+            - Path=/api/v1/inventory/**
+          filters:
+            - StripPrefix=2
+            - name: CircuitBreaker
+              args:
+                name: inventoryCircuit
+                fallbackUri: forward:/fallback/inventory
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "https://shop.example.com"
+            allowedMethods: [GET, POST, PUT, DELETE, OPTIONS]
+            allowedHeaders: "*"
+            allowCredentials: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.example.com/realms/ecommerce
+  data:
+    redis:
+      host: redis
+      port: 6379
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
