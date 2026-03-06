@@ -102,7 +102,16 @@ Each service exposes runtime Swagger docs at:
 - `/swagger-ui.html`
 - `/v3/api-docs`
 
+When running with `docker-compose`, use these host URLs:
+- Auth Service: `http://localhost:8081/swagger-ui.html`
+- User Service: `http://localhost:8082/swagger-ui.html`
+- Product Service: `http://localhost:8083/swagger-ui.html`
+- Cart Service: `http://localhost:8084/swagger-ui.html`
+- Order Service: `http://localhost:8085/swagger-ui.html`
+- Payment Service: `http://localhost:8086/swagger-ui.html`
+- Notification Service: `http://localhost:8087/swagger-ui.html`
+- Inventory Service: `http://localhost:8088/swagger-ui.html`
+
 ## Additional Documentation
 
 - Key microservice functionality summary: `docs/Key_Microservice_Functionalities.md`.
-
