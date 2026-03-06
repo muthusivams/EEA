@@ -101,3 +101,8 @@ Indexes:
 Each service exposes runtime Swagger docs at:
 - `/swagger-ui.html`
 - `/v3/api-docs`
+
+## Additional Documentation
+
+- Key microservice functionality summary: `docs/Key_Microservice_Functionalities.md`.
+
