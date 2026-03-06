@@ -31,103 +31,127 @@ services:
     command: ["sh","-c","echo 'config stub'"]
     ports: ["8888:8888"]
 
-  postgres-auth:
-    image: postgres:16
+  mysql-auth:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: authdb
-      POSTGRES_USER: auth
-      POSTGRES_PASSWORD: auth
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: authdb
 
-  postgres-user:
-    image: postgres:16
+  mysql-user:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: userdb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: userdb
 
-  postgres-product:
-    image: postgres:16
+  mysql-product:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: productdb
-      POSTGRES_USER: product
-      POSTGRES_PASSWORD: product
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: productdb
 
-  postgres-cart:
-    image: postgres:16
+  mysql-cart:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: cartdb
-      POSTGRES_USER: cart
-      POSTGRES_PASSWORD: cart
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: cartdb
 
 
-  postgres-order:
-    image: postgres:16
+  mysql-order:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: orderdb
-      POSTGRES_USER: order
-      POSTGRES_PASSWORD: order
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: orderdb
 
-  postgres-payment:
-    image: postgres:16
+  mysql-payment:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: paymentdb
-      POSTGRES_USER: payment
-      POSTGRES_PASSWORD: payment
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: paymentdb
 
-  postgres-notification:
-    image: postgres:16
+  mysql-notification:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: notificationdb
-      POSTGRES_USER: notification
-      POSTGRES_PASSWORD: notification
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: notificationdb
 
-  postgres-inventory:
-    image: postgres:16
+  mysql-inventory:
+    image: mysql:8.4
     environment:
-      POSTGRES_DB: inventorydb
-      POSTGRES_USER: inventory
-      POSTGRES_PASSWORD: inventory
+      MYSQL_ROOT_PASSWORD: Thenu@5612
+      MYSQL_DATABASE: inventorydb
 
   auth-service:
     build: ./auth-service
     ports: ["8081:8081"]
-    depends_on: [postgres-auth, redis, kafka]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-auth:3306/authdb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-auth, redis, kafka]
 
   user-service:
     build: ./user-service
     ports: ["8082:8082"]
-    depends_on: [postgres-user]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-user:3306/userdb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-user]
 
   product-service:
     build: ./product-service
     ports: ["8083:8083"]
-    depends_on: [postgres-product, redis]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-product:3306/productdb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-product, redis]
 
   cart-service:
     build: ./cart-service
     ports: ["8084:8084"]
-    depends_on: [postgres-cart]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-cart:3306/cartdb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-cart]
 
 
   order-service:
     build: ./order-service
     ports: ["8085:8085"]
-    depends_on: [postgres-order, kafka]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-order:3306/orderdb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-order, kafka]
 
   payment-service:
     build: ./payment-service
     ports: ["8086:8086"]
-    depends_on: [postgres-payment, kafka]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-payment:3306/paymentdb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-payment, kafka]
 
   notification-service:
     build: ./notification-service
     ports: ["8087:8087"]
-    depends_on: [postgres-notification, kafka]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-notification:3306/notificationdb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-notification, kafka]
 
   inventory-service:
     build: ./inventory-service
     ports: ["8088:8088"]
-    depends_on: [postgres-inventory]
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-inventory:3306/inventorydb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: Thenu@5612
+    depends_on: [mysql-inventory]
 
   api-gateway:
     image: eclipse-temurin:21-jre
