@@ -9,7 +9,7 @@ This repository contains a production-oriented blueprint for a Java/Spring micro
   - Synchronous: REST over HTTPS via API Gateway
   - Asynchronous: Kafka event bus using Outbox + Saga orchestration
 - **Data strategy**:
-  - Database-per-service (PostgreSQL)
+  - Database-per-service (MySQL)
   - Redis for caching, token revocation, and rate limiting
 - **Infrastructure**:
   - Discovery (Eureka)
